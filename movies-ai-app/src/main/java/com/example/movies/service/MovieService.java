@@ -24,7 +24,6 @@ public class MovieService {
         movie.setTitle(title);
         movie.setRating(rating);
 
-        // Generate AI description
         String description = generateDescriptionFromAI(title);
         movie.setDescription(description);
 
@@ -32,15 +31,12 @@ public class MovieService {
     }
 
     private String generateDescriptionFromAI(String title) {
-        // Build prompt
         String prompt = "Write a short and exciting description of the movie titled: " + title;
 
-        // Prepare request body
         var requestBody = new java.util.HashMap<String, Object>();
         var contentPart = java.util.Map.of("parts", java.util.List.of(java.util.Map.of("text", prompt)));
         requestBody.put("contents", java.util.List.of(contentPart));
 
-        // Call Gemini API (blocking for simplicity; you could make this reactive too)
         return geminiWebClient.post()
                 .uri(uriBuilder -> uriBuilder.path(":generateContent").build())
                 .body(Mono.just(requestBody), Object.class)

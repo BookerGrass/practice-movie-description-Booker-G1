@@ -13,9 +13,8 @@ public class Movie {
     private Double rating;
 
     @Column(length = 2000)
-    private String description; // AI-generated description
+    private String description;
 
-    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getTitle() { return title; }
